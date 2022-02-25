@@ -4,7 +4,6 @@ class Controller:
 
     def on_view_init_complete(self, view):
         self.view = view
-        self.view.run()
 
     def get_data(self):
         data = self.model.get_system()

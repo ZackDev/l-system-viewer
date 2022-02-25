@@ -21,8 +21,6 @@ class LSystemView(AbstractView):
         self.color_palette = [(102, 255, 155), (0, 204, 255), (0, 153, 255), (0, 70, 255)]
         self.pen = turtle.Turtle()
         self.controller.on_view_init_complete(self)
-
-    def run(self):
         self.controller.get_data()
         self.window.mainloop()
 
