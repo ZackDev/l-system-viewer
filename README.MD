@@ -10,3 +10,5 @@ requirements: python3.10
 * click on the window to draw the next LSystem
 
 to remove / add / modify LSystems, edit [Model.py](Model.py)
+
+![lsv-screenshot](lsv-screenshot.png)
