@@ -10,8 +10,8 @@ class AbstractModel(ABC):
 class LSystemModel(AbstractModel):
     def __init__(self):
         self.systems = []
-        fractal_binary_tree = LSystem(name='Fractal Binary Tree', axiom='0', rules={'0': '1[-0]+0', '1': '11'},
-                                      char_map={'0': 'F', '1': 'F'}, starting_angle=90, angle=45, depth=7)
+        fractal_binary_tree = LSystem(name='Fractal Binary Tree', axiom='0', rules={'0': '1[0]0', '1': '11'},
+                                      char_map={'0': 'F', '1': 'F', '[': '[-', ']': ']+'}, starting_angle=90, angle=45, depth=7)
 
         koch_snowflake = LSystem(name='Koch Curve', axiom='F', rules={'F': 'F+F-F-F+F'},
                                  char_map={}, starting_angle=0, angle=90, depth=4)
