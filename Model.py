@@ -11,85 +11,85 @@ class LSystemModel(AbstractModel):
     def __init__(self):
         self.systems = []
         fractal_binary_tree = LSystem(name='Fractal Binary Tree', axiom='0', rules={'0': '1[-0]+0', '1': '11'},
-                                      char_map={'0': 'F', '1': 'F'}, angle=45, depth=7)
+                                      char_map={'0': 'F', '1': 'F'}, starting_angle=90, angle=45, depth=7)
 
         koch_snowflake = LSystem(name='Koch Curve', axiom='F', rules={'F': 'F+F-F-F+F'},
-                                 char_map={}, angle=90, depth=4)
+                                 char_map={}, starting_angle=0, angle=90, depth=4)
 
         flake = LSystem(name='Koch Snowflake', axiom='F++F++F', rules={'F': 'F-F++F-F'},
-                        char_map={}, angle=60, depth=4)
+                        char_map={}, starting_angle=90, angle=60, depth=4)
 
         dragon = LSystem(name='Dragon Curve', axiom='FX', rules={'X': 'X+YF+', 'Y': '-FX-Y'},
-                         char_map={'X': '', 'Y': ''}, angle=90, depth=10)
+                         char_map={'X': '', 'Y': ''}, starting_angle=90, angle=90, depth=10)
 
         sierpinski_triangle = LSystem(name='Sierpinski Triangle', axiom='A', rules={'A': 'B-A-B', 'B': 'A+B+A'},
-                                      char_map={'A': 'F', 'B': 'F'}, angle=60, depth=5)
+                                      char_map={'A': 'F', 'B': 'F'}, starting_angle=90, angle=60, depth=5)
 
         moore = LSystem(name='Moore', axiom='LFL+F+LFL', rules={'L': '-RF+LFL+FR-', 'R': '+LF-RFR-FL+'},
-                        char_map={'L': '', 'R': ''}, angle=90, depth=4)
+                        char_map={'L': '', 'R': ''}, starting_angle=90, angle=90, depth=4)
 
         levy = LSystem(name='Levy', axiom='F', rules={'F': '+F--F+'},
-                            char_map={}, angle=45, depth=9)
+                            char_map={}, starting_angle=0, angle=45, depth=9)
 
         hilbert = LSystem(name='Hilbert Curve', axiom='A', rules={'A': '-BF+AFA+FB-', 'B': '+AF-BFB-FA+'},
-                          char_map={'A': '', 'B': ''}, angle=90, depth=5)
+                          char_map={'A': '', 'B': ''}, starting_angle=90, angle=90, depth=5)
 
         gosper = LSystem(name='Gosper Curve', axiom='X', rules={'X': 'X+YF++YF-FX--FXFX-YF+', 'Y': '-FX+YFYF++YF+FX--FX-Y'},
-                         char_map={'X': '', 'Y': ''}, angle=60, depth=4)
+                         char_map={'X': '', 'Y': ''}, starting_angle=90, angle=60, depth=4)
 
         minkowsky = LSystem(name='Minkiwski sausage', axiom='F', rules={'F': 'F+F-F-FF+F+F-F'},
-                            char_map={}, angle=90, depth=3)
+                            char_map={}, starting_angle=90, angle=90, depth=3)
 
         peano = LSystem(name='Peano Curve', axiom='F', rules={'F': 'F+F-F-F-F+F+F+F-F'},
-                        char_map={}, angle=90, depth=3)
+                        char_map={}, starting_angle=90, angle=90, depth=3)
 
         sierpinski_sieve = LSystem(name='Sierpinski Sieve', axiom='YF', rules={'X': 'YF+XF+Y', 'Y': 'XF-YF-X'},
-                                   char_map={'X': '', 'Y': ''}, angle=60, depth=5)
+                                   char_map={'X': '', 'Y': ''}, starting_angle=90, angle=60, depth=5)
 
         koch_antisnowflake = LSystem(name='Koch Antisnowflake', axiom='F++F++F', rules={'F': 'F+F--F+F'},
-                                     char_map={}, angle=60, depth=4)
+                                     char_map={}, starting_angle=90, angle=60, depth=4)
 
         koch_island = LSystem(name='Quadratic Koch Island', axiom='F+F+F+F', rules={'F': 'F+F-F-FF+F+F-F'},
-                              char_map={}, angle=90, depth=3)
+                              char_map={}, starting_angle=90, angle=90, depth=3)
 
         sierpinski_curve = LSystem(name='Sierpinski Curve', axiom='F+XF+F+XF', rules={'X': 'XF-F+F-XF+F+XF-F+F-X'},
-                                   char_map={'X': ''}, angle=90, depth=4)
+                                   char_map={'X': ''}, starting_angle=90, angle=90, depth=4)
 
         terdragon = LSystem(name='Terdragon', axiom='F', rules={'F': 'F+F-F'},
-                            char_map={}, angle=120, depth=7)
+                            char_map={}, starting_angle=90, angle=120, depth=7)
 
         crystal = LSystem(name='Crystal', axiom='F', rules={'F': 'F+F--X+F-F++X-F', 'X': 'XXX'},
-                          char_map={'X': 'F'}, angle=90, depth=4)
+                          char_map={'X': 'F'}, starting_angle=90, angle=90, depth=4)
 
         island_and_lakes = LSystem(name='Island and Lakes', axiom='F+F+F+F', rules={'F': 'F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF', 'f': 'ffffff'},
-                                   char_map={}, angle=90, depth=2)
+                                   char_map={}, starting_angle=90, angle=90, depth=2)
 
         pentadentrite = LSystem(name='Pentadentrite', axiom='F', rules={'F': 'F+F-F--F+F+F'},
-                                char_map={}, angle=72, depth=4)
+                                char_map={}, starting_angle=90, angle=72, depth=4)
 
         sierpinski_carpet = LSystem(name='Sierpinski Carpet', axiom='F', rules={'F': 'F+F-F-FF-F-F-fF', 'f': 'fff'},
-                                    char_map={}, angle=90, depth=4)
+                                    char_map={}, starting_angle=90, angle=90, depth=4)
 
         custom_flower = LSystem(name='Flower', axiom='F-F-F-F-F-F', rules={'F': 'F+F+F-F-F-F+F+F'},
-                                char_map={}, angle=60, depth=0)
+                                char_map={}, starting_angle=90, angle=60, depth=0)
 
         custom_flower2 = LSystem(name='Flower', axiom='F-F-F-F-F-F', rules={'F': 'F+F+F-F-F-F+F+F'},
-                                 char_map={}, angle=60, depth=1)
+                                 char_map={}, starting_angle=90, angle=60, depth=1)
 
         custom_flower3 = LSystem(name='Flower', axiom='F-F-F-F-F-F', rules={'F': 'F+F+F-F-F-F+F+F'},
-                                 char_map={}, angle=60, depth=2)
+                                 char_map={}, starting_angle=90, angle=60, depth=2)
 
         custom_flower4 = LSystem(name='Flower', axiom='F-F-F-F-F-F', rules={'F': 'F+F+F-F-F-F+F+F'},
-                                 char_map={}, angle=60, depth=3)
+                                 char_map={}, starting_angle=90, angle=60, depth=3)
 
         fractal_plant = LSystem(name='Fractal Plant', axiom='X', rules={'X': 'F+[[X]-X]-F[-FX]+X', 'F': 'FF'},
-                                char_map={}, angle=25, depth=3)
+                                char_map={}, starting_angle=90, angle=25, depth=3)
 
         fractal_plant1 = LSystem(name='Fractal Plant', axiom='X', rules={'X': 'F+[[X]-X]-F[-FX]+X', 'F': 'FF'},
-                                 char_map={}, angle=25, depth=6)
+                                 char_map={}, starting_angle=90, angle=25, depth=6)
 
         fractal_thing = LSystem(name='Fractal Thing', axiom='[f+F+F+F+F+F+F+F+F+F+F]', rules={'F': 'FF', 'f': 'ff'},
-                                char_map={}, angle=36, depth=5)
+                                char_map={}, starting_angle=90, angle=36, depth=5)
 
         self.systems.append(fractal_binary_tree)
         self.systems.append(koch_snowflake)
@@ -122,11 +122,12 @@ class LSystemModel(AbstractModel):
 
 
 class LSystem:
-    def __init__(self, name, axiom, rules, char_map, angle, depth):
+    def __init__(self, name, axiom, rules, char_map, starting_angle, angle, depth):
         self.name = name
         self.axiom = axiom
         self.rules = rules
         self.char_map = char_map
+        self.starting_angle = starting_angle
         self.angle = angle
         self.depth = depth
         self.str = self.str_system(self.axiom, self.depth)

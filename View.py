@@ -29,7 +29,7 @@ class LSystemView(AbstractView):
     def onmouse(self, btn, add):
         self.controller.get_data()
 
-    def update_view(self, name, depth, str, angle):
+    def update_view(self, name, depth, str, starting_angle, angle):
         self.window.onscreenclick(None)
         self.pen.reset()
         self.name = name
@@ -42,7 +42,7 @@ class LSystemView(AbstractView):
         self.pen.hideturtle()
         self.pen.speed('fastest')
         self.pen.pensize(2)
-        self.pen.setheading(90 - self.angle)
+        self.pen.setheading(starting_angle)
 
         # draw function:
         # 'F' move pen forward and draw
