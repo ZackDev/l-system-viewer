@@ -10,6 +10,10 @@ class AbstractModel(ABC):
 class LSystemModel(AbstractModel):
     def __init__(self):
         self.systems = []
+
+        snake_kolam = LSystem(name='Snake Kolam', axiom='b--F--b--F', rules={'b': 'b+F+b--F--b+F+b'},
+                              char_map={'b': 'F+F+F--F--F+F+F'}, starting_angle=0, angle=45, depth=3)
+
         fractal_binary_tree = LSystem(name='Fractal Binary Tree', axiom='0', rules={'0': '1[0]0', '1': '11'},
                                       char_map={'0': 'F', '1': 'F', '[': '[-', ']': ']+'}, starting_angle=90, angle=45, depth=7)
 
@@ -91,6 +95,7 @@ class LSystemModel(AbstractModel):
         fractal_thing = LSystem(name='Fractal Thing', axiom='[f+F+F+F+F+F+F+F+F+F+F]', rules={'F': 'FF', 'f': 'ff'},
                                 char_map={}, starting_angle=90, angle=36, depth=5)
 
+        self.systems.append(snake_kolam)
         self.systems.append(fractal_binary_tree)
         self.systems.append(koch_snowflake)
         self.systems.append(flake)
