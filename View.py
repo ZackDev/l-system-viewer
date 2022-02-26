@@ -58,18 +58,18 @@ class LSystemView(AbstractView):
                     color = self.color_palette[index % len(self.color_palette)]
                     r, g, b = color[0], color[1], color[2]
                     self.pen.pencolor(r, g, b)
+                    self.pen.pendown()
                     self.pen.forward(10)
                     index += 1
                 case 'f':
                     self.pen.penup()
                     self.pen.forward(10)
-                    self.pen.pendown()
                 case '+':
                     self.pen.left(self.angle)
                 case '-':
                     self.pen.right(self.angle)
                 case '[':
-                    pen_position = self.pen.position()
+                    pen_position = self.pen.pos()
                     pen_heading = self.pen.heading()
                     turtle_stack.append((pen_position, pen_heading))
                 case ']':
@@ -79,5 +79,5 @@ class LSystemView(AbstractView):
                     self.pen.penup()
                     self.pen.setposition(pen_position)
                     self.pen.setheading(pen_heading)
-                    self.pen.down()
+                    self.pen.pendown()
         self.window.onscreenclick(self.onmouse, btn=1, add=None)
