@@ -86,10 +86,10 @@ class LSystemModel(AbstractModel):
         custom_flower4 = LSystem(name='Flower', axiom='F-F-F-F-F-F', rules={'F': 'F+F+F-F-F-F+F+F'},
                                  char_map={}, starting_angle=90, angle=60, depth=3)
 
-        fractal_plant = LSystem(name='Fractal Plant', axiom='X', rules={'X': 'F+[[X]-X]-F[-FX]+X', 'F': 'FF'},
+        fractal_plant = LSystem(name='Fractal Plant 0', axiom='X', rules={'X': 'F+[[X]-X]-F[-FX]+X', 'F': 'FF'},
                                 char_map={}, starting_angle=90, angle=25, depth=3)
 
-        fractal_plant1 = LSystem(name='Fractal Plant', axiom='X', rules={'X': 'F+[[X]-X]-F[-FX]+X', 'F': 'FF'},
+        fractal_plant1 = LSystem(name='Fractal Plant 1', axiom='X', rules={'X': 'F+[[X]-X]-F[-FX]+X', 'F': 'FF'},
                                  char_map={}, starting_angle=90, angle=25, depth=6)
 
         fractal_thing = LSystem(name='Fractal Thing', axiom='[f+F+F+F+F+F+F+F+F+F+F]', rules={'F': 'FF', 'f': 'ff'},
@@ -124,6 +124,20 @@ class LSystemModel(AbstractModel):
             return self.systems.pop(0)
         except Exception:
             return None
+
+    def get_system_by_name(self, name):
+        system = None
+        for s in self.systems:
+            if s.name == name:
+                system = s
+                break
+        return system
+
+    def get_system_names(self):
+        system_names = []
+        for system in self.systems:
+            system_names.append(system.name)
+        return system_names
 
 
 class LSystem:

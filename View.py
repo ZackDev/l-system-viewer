@@ -1,8 +1,13 @@
 from abc import ABC, abstractmethod
+import tkinter
 import turtle
 
 
 class AbstractView(ABC):
+    @abstractmethod
+    def add_menu_entry(name):
+        pass
+
     @abstractmethod
     def update_view(self, name, depth, str):
         pass
@@ -11,6 +16,14 @@ class AbstractView(ABC):
 class LSystemView(AbstractView):
     def __init__(self, controller):
         self.controller = controller
+        self.root = tkinter.Tk()
+        self.menucategory = tkinter.Menu(self.root)
+        self.menuitems = tkinter.Menu(self.menucategory)
+        self.menucategory.add_cascade(
+            label='select system',
+            menu=self.menuitems
+        )
+        self.root.config(menu=self.menucategory)
         self.window = turtle.Screen()
         # self.window._root.state('normal')
         self.window.setup(width=1.0, height=0.9)
@@ -21,11 +34,13 @@ class LSystemView(AbstractView):
         self.color_palette = [(102, 255, 155), (0, 204, 255), (0, 153, 255), (0, 70, 255)]
         self.pen = turtle.Turtle()
         self.controller.on_view_init_complete(self)
-        self.controller.get_data()
         self.window.mainloop()
 
-    def onmouse(self, btn, add):
-        self.controller.get_data()
+    def add_menu_entry(self, name):
+        self.menuitems.add_command(
+            label=name,
+            command=lambda: self.controller.get_system_by_name(name)
+        )
 
     def update_view(self, name, depth, str, starting_angle, angle):
         self.window.onscreenclick(None)
@@ -80,4 +95,3 @@ class LSystemView(AbstractView):
                     self.pen.setposition(pen_position)
                     self.pen.setheading(pen_heading)
                     self.pen.pendown()
-        self.window.onscreenclick(self.onmouse, btn=1, add=None)
