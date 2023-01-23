@@ -17,16 +17,12 @@ class LSystemView(AbstractView):
     def __init__(self, controller):
         self.controller = controller
         self.root = tkinter.Tk()
+        self.root.title('l-system-viewer')
         maxsize = self.root.maxsize()
-
-        self.frame = tkinter.Frame(
-            self.root
-        )
-        self.frame.pack()
 
         # canvas
         self.canvas = tkinter.Canvas(
-            self.frame,
+            self.root,
             width=maxsize[0] - 50,
             height=maxsize[1] - 100
         )
@@ -34,7 +30,7 @@ class LSystemView(AbstractView):
 
         # scrollbars
         hscroll = tkinter.Scrollbar(
-            self.frame,
+            self.root,
             orient='horizontal'
         )
         hscroll.pack(
@@ -44,7 +40,7 @@ class LSystemView(AbstractView):
         hscroll.config(command=self.canvas.xview)
 
         vscroll = tkinter.Scrollbar(
-            self.frame,
+            self.root,
             orient='vertical'
         )
         vscroll.pack(
@@ -63,9 +59,9 @@ class LSystemView(AbstractView):
 
         # menu
         self.menucategory = tkinter.Menu(self.root)
-        self.menuitems = tkinter.Menu(self.menucategory)
+        self.menuitems = tkinter.Menu(self.menucategory, tearoff=0)
         self.menucategory.add_cascade(
-            label='select system',
+            label='l-systems',
             menu=self.menuitems
         )
         self.root.config(menu=self.menucategory)
@@ -76,6 +72,7 @@ class LSystemView(AbstractView):
             (0, 153, 255),
             (0, 70, 255)
             ]
+        self.update_scrollregion()
         self.controller.on_view_init_complete(self)
         self.root.mainloop()
 
