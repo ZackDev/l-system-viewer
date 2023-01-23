@@ -17,40 +17,72 @@ class LSystemView(AbstractView):
     def __init__(self, controller):
         self.controller = controller
         self.root = tkinter.Tk()
+        maxsize = self.root.maxsize()
+
+        self.frame = tkinter.Frame(
+            self.root
+            )
+        self.frame.pack()
+
+        # scrollbars
+        hscroll = tkinter.Scrollbar(
+            self.frame,
+            orient='horizontal'
+            )
+
+        vscroll = tkinter.Scrollbar(
+            self.frame,
+            orient='vertical'
+            )
+
+        # canvas
+        self.canvas = tkinter.Canvas(
+            self.frame,
+            width=maxsize[0],
+            height=maxsize[1],
+            scrollregion=(0, 0, 10000, 10000)
+            )
+        self.canvas.pack()
+
+        # turtle
+        self.turtle = turtle.TurtleScreen(self.canvas)
+        self.turtle.colormode(255)
+        self.turtle.bgcolor(51, 51, 51)
+        self.turtle.tracer(1, 0)
+        self.pen = turtle.RawTurtle(self.canvas)
+        
+        # menu
         self.menucategory = tkinter.Menu(self.root)
         self.menuitems = tkinter.Menu(self.menucategory)
         self.menucategory.add_cascade(
             label='select system',
             menu=self.menuitems
-        )
+            )
         self.root.config(menu=self.menucategory)
-        self.window = turtle.Screen()
-        # self.window._root.state('normal')
-        self.window.setup(width=1.0, height=0.9)
-        self.window.screensize(10000, 10000)
-        self.window.colormode(255)
-        self.window.bgcolor(51, 51, 51)
-        self.window.tracer(1, 0)
-        self.color_palette = [(102, 255, 155), (0, 204, 255), (0, 153, 255), (0, 70, 255)]
-        self.pen = turtle.Turtle()
+
+        self.color_palette = [
+            (102, 255, 155),
+            (0, 204, 255),
+            (0, 153, 255),
+            (0, 70, 255)
+            ]
         self.controller.on_view_init_complete(self)
-        self.window.mainloop()
+        self.root.mainloop()
 
     def add_menu_entry(self, name):
         self.menuitems.add_command(
             label=name,
             command=lambda: self.controller.get_system_by_name(name)
-        )
+            )
 
     def update_view(self, name, depth, str, starting_angle, angle):
-        self.window.onscreenclick(None)
         self.pen.reset()
         self.name = name
         self.depth = depth
         self.str = str
         self.angle = angle
 
-        self.window.title(f'Name: {self.name} - Depth: {self.depth}')
+        self.root.title(f'Name: {self.name} - Depth: {self.depth}')
 
         self.pen.hideturtle()
         self.pen.speed('fastest')
@@ -72,7 +104,7 @@ class LSystemView(AbstractView):
                 case 'F':
                     color = self.color_palette[index % len(self.color_palette)]
                     r, g, b = color[0], color[1], color[2]
-                    self.pen.pencolor(r, g, b)
+                    self.pen.pencolor(r/255, g/255, b/255)
                     self.pen.pendown()
                     self.pen.forward(10)
                     index += 1
