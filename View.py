@@ -21,43 +21,53 @@ class LSystemView(AbstractView):
 
         self.frame = tkinter.Frame(
             self.root
-            )
+        )
         self.frame.pack()
+
+        # canvas
+        self.canvas = tkinter.Canvas(
+            self.frame,
+            width=maxsize[0] - 50,
+            height=maxsize[1] - 100
+        )
+        self.canvas.pack()
 
         # scrollbars
         hscroll = tkinter.Scrollbar(
             self.frame,
             orient='horizontal'
-            )
+        )
+        hscroll.pack(
+            side='bottom',
+            fill='x'
+        )
+        hscroll.config(command=self.canvas.xview)
 
         vscroll = tkinter.Scrollbar(
             self.frame,
             orient='vertical'
-            )
+        )
+        vscroll.pack(
+            side='right',
+            fill='y'
+        )
+        vscroll.config(command=self.canvas.yview)
 
-        # canvas
-        self.canvas = tkinter.Canvas(
-            self.frame,
-            width=maxsize[0],
-            height=maxsize[1],
-            scrollregion=(0, 0, 10000, 10000)
-            )
-        self.canvas.pack()
+        self.canvas.config(
+            xscrollcommand=hscroll.set,
+            yscrollcommand=vscroll.set
+        )
 
         # turtle
-        self.turtle = turtle.TurtleScreen(self.canvas)
-        self.turtle.colormode(255)
-        self.turtle.bgcolor(51, 51, 51)
-        self.turtle.tracer(1, 0)
         self.pen = turtle.RawTurtle(self.canvas)
-        
+
         # menu
         self.menucategory = tkinter.Menu(self.root)
         self.menuitems = tkinter.Menu(self.menucategory)
         self.menucategory.add_cascade(
             label='select system',
             menu=self.menuitems
-            )
+        )
         self.root.config(menu=self.menucategory)
 
         self.color_palette = [
@@ -73,7 +83,7 @@ class LSystemView(AbstractView):
         self.menuitems.add_command(
             label=name,
             command=lambda: self.controller.get_system_by_name(name)
-            )
+        )
 
     def update_view(self, name, depth, str, starting_angle, angle):
         self.pen.reset()
@@ -108,6 +118,7 @@ class LSystemView(AbstractView):
                     self.pen.pendown()
                     self.pen.forward(10)
                     index += 1
+                    self.update_scrollregion()
                 case 'f':
                     self.pen.penup()
                     self.pen.forward(10)
@@ -127,3 +138,6 @@ class LSystemView(AbstractView):
                     self.pen.setposition(pen_position)
                     self.pen.setheading(pen_heading)
                     self.pen.pendown()
+
+    def update_scrollregion(self):
+        self.canvas.config(scrollregion=self.canvas.bbox('all'))
