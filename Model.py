@@ -3,8 +3,12 @@ from abc import ABC, abstractmethod
 
 class AbstractModel(ABC):
     @abstractmethod
-    def get_system(self):
-        pass
+    def get_system_by_name(name):
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_system_names(self):
+        raise NotImplementedError
 
 
 class LSystemModel(AbstractModel):
@@ -119,12 +123,6 @@ class LSystemModel(AbstractModel):
         self.systems.append(fractal_plant)
         self.systems.append(fractal_plant1)
 
-    def get_system(self):
-        try:
-            return self.systems.pop(0)
-        except Exception:
-            return None
-
     def get_system_by_name(self, name):
         system = None
         for s in self.systems:
@@ -161,17 +159,17 @@ class LSystem:
                 result = result.replace(key, mapping)
         while depth > 0:
             for c in axiom:
-                # indicates weather a rule for c has been found or not
-                rule_exists = False
+                # indicates whether a rule for c has been applied or not
+                rule_applied = False
                 # apply rules
                 for key, substitute in self.rules.items():
                     if c == key:
-                        # set found flag, append substitute and leave loop
-                        rule_exists = True
+                        # set the applied flag, append substitute and leave loop
+                        rule_applied = True
                         result += substitute
                         break
-                if not rule_exists:
-                    # if there is no rule, simply copy the character
+                if not rule_applied:
+                    # if no substitution has been applied, simply copy the character
                     result += c
             depth -= 1
             return self.str_system(result, depth)

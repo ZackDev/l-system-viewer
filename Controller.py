@@ -4,13 +4,12 @@ class Controller:
 
     def on_view_init_complete(self, view):
         self.view = view
-        menuitems = self.model.get_system_names()
-        for m in menuitems:
-            self.view.add_menu_entry(m)
+        ls_names = self.model.get_system_names()
+        [self.view.add_menu_entry(n) for n in ls_names]
 
     def get_system_by_name(self, name):
-        data = self.model.get_system_by_name(name)
-        if data:
-            self.view.update_view(data.name, data.depth, data.str, data.starting_angle, data.angle)
+        ls = self.model.get_system_by_name(name)
+        if ls:
+            self.view.update_view(ls.name, ls.depth, ls.str, ls.starting_angle, ls.angle)
         else:
             pass
