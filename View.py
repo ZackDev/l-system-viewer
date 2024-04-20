@@ -83,6 +83,7 @@ class LSystemView(AbstractView):
         )
 
     def update_view(self, name, depth, str, starting_angle, angle):
+        keep_drawing = False
         self.pen.reset()
         self.name = name
         self.depth = depth
@@ -104,37 +105,41 @@ class LSystemView(AbstractView):
         # '[' store current pen state
         # ']' restore last stored pen state
 
+        keep_drawing = True
         index = 0   # index to change color every step forward 'F'
         turtle_stack = []
-        for c in self.str:
-            match c:
-                case 'F':
-                    color = self.color_palette[index % len(self.color_palette)]
-                    r, g, b = color[0], color[1], color[2]
-                    self.pen.pencolor(r/255, g/255, b/255)
-                    self.pen.pendown()
-                    self.pen.forward(10)
-                    index += 1
-                    self.update_scrollregion()
-                case 'f':
-                    self.pen.penup()
-                    self.pen.forward(10)
-                case '+':
-                    self.pen.left(self.angle)
-                case '-':
-                    self.pen.right(self.angle)
-                case '[':
-                    pen_position = self.pen.pos()
-                    pen_heading = self.pen.heading()
-                    turtle_stack.append((pen_position, pen_heading))
-                case ']':
-                    turtle_state = turtle_stack.pop(-1)
-                    pen_position = turtle_state[0]
-                    pen_heading = turtle_state[1]
-                    self.pen.penup()
-                    self.pen.setposition(pen_position)
-                    self.pen.setheading(pen_heading)
-                    self.pen.pendown()
+        
+        while keep_drawing is True:
+            for c in self.str:
+                self.update_scrollregion()
+                match c:
+                    case 'F':
+                        color = self.color_palette[index % len(self.color_palette)]
+                        r, g, b = color[0], color[1], color[2]
+                        self.pen.pencolor(r/255, g/255, b/255)
+                        self.pen.pendown()
+                        self.pen.forward(10)
+                        index += 1
+                    case 'f':
+                        self.pen.penup()
+                        self.pen.forward(10)
+                    case '+':
+                        self.pen.left(self.angle)
+                    case '-':
+                        self.pen.right(self.angle)
+                    case '[':
+                        pen_position = self.pen.pos()
+                        pen_heading = self.pen.heading()
+                        turtle_stack.append((pen_position, pen_heading))
+                    case ']':
+                        turtle_state = turtle_stack.pop(-1)
+                        pen_position = turtle_state[0]
+                        pen_heading = turtle_state[1]
+                        self.pen.penup()
+                        self.pen.setposition(pen_position)
+                        self.pen.setheading(pen_heading)
+                        self.pen.pendown()
+            keep_drawing = False
 
     def update_scrollregion(self):
         self.canvas.config(scrollregion=self.canvas.bbox('all'))
